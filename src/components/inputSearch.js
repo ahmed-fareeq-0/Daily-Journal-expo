@@ -1,16 +1,20 @@
 import react from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 
 const inputSearch = () => {
+
+    const navigation = useNavigation();
     return (
         <View>
-            <Text style={styles.title}>مفكرة حرة</Text>
+            {/* <Text style={styles.title}>مفكرة حرة</Text> */}
 
             <View style={styles.addAndSearch}>
                 <TextInput style={styles.searchInput} placeholder='ابحث' />
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('AddDaily')}>
                     <View style={styles.btn}>
-                        <Text style={{ color: "white" }}>اضف مذكرة جديدة</Text>
+                        <Text style={{ color: "white" }} >اضف مذكرة جديدة</Text>
                     </View>
                 </TouchableOpacity>
             </View>
