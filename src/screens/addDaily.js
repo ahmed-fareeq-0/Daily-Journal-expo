@@ -1,13 +1,20 @@
-import react from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, FlatList } from "react-native";
+import { Context } from "../context/Provider";
 
 const AddDaily = () => {
+
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+
+    const {addAndSave} = useContext(Context)
+
+
     return (
         <View style={styles.addDailyWrapper}>
-            <TextInput style={styles.title} placeholder="العنوان" />
-            <TextInput style={styles.addInput} placeholder="اكتب شيء" />
-            <TouchableOpacity style={styles.btnSave}>
+            <TextInput style={styles.titlee} placeholder='Add Task...' value={title} onChangeText={(text) => setTitle(text)} />
+            <TextInput style={styles.addInput} value={desc} onChangeText={(text) => setDesc(text)} placeholder="اكتب شيء" />
+            <TouchableOpacity style={styles.btnSave} onPress={() => addAndSave(title, desc)} >
                 <Text style={{ color: "white" }} >حفظ المذكرة</Text>
             </TouchableOpacity>
         </View>
@@ -31,7 +38,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         // width: '100%',
     },
-    title: {
+    titlee: {
         backgroundColor: '#fff',
         height: 40,
         marginBottom: 15,

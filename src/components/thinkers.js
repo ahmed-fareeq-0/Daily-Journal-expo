@@ -1,20 +1,33 @@
-import react from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Context } from "../context/Provider";
 
-const thinkers = () => {
+const Thinkers = () => {
+
+    const { notes, deleteFromList } = useContext(Context)
+
     return (
-        <View style={styles.item}>
-            <View style={styles.itemLeft}>
-                <Text style={styles.itemText}>تذكير</Text>
-                <Text style={{ marginVertical: 10 }}> لا تنسى ان تزور فلان</Text>
-                <Text style={styles.date}>24 اغسطس </Text>
-            </View>
+        <View style={{marginBottom:100}}>
+            <FlatList
+                data={notes}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <View style={styles.item}>
+                        <View style={styles.itemLeft}>
+                            <Text style={styles.itemText}>{item.title}</Text>
+                            <Text style={{ marginVertical: 10 }}>{item.desc}</Text>
+                            <Text style={styles.date}>24 اغسطس </Text>
+                        </View>
 
-            <MaterialIcons
-                name='delete'
-                size={24}
-                color='red'
+                        <MaterialIcons
+                            name='delete'
+                            size={24}
+                            color='red'
+                            onPress={() => deleteFromList(item.id)}
+                        />
+                    </View>
+                )}
             />
         </View>
     );
@@ -63,4 +76,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default thinkers
+export default Thinkers

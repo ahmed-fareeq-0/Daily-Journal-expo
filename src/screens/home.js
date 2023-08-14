@@ -4,6 +4,7 @@ import InputSearch from "../components/inputSearch"
 import Thinkers from "../components/thinkers";
 
 const Home = () => {
+
     return (
         <View style={styles.homeWrapper}>
             <InputSearch />

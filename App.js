@@ -5,15 +5,18 @@ import Home from './src/screens/home';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddDaily from './src/screens/addDaily';
+import { Provider } from './src/context/Provider';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home" >
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="AddDaily" component={AddDaily} />
-      </Stack.Navigator>
+      <Provider>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home" >
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="AddDaily" component={AddDaily} />
+        </Stack.Navigator>
+      </Provider>
     </NavigationContainer>
   );
 }
