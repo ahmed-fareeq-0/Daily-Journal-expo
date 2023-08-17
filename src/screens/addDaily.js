@@ -12,7 +12,7 @@ const AddDaily = () => {
 
     return (
         <View style={styles.addDailyWrapper}>
-            <TextInput style={styles.titlee} placeholder='Add Task...' value={title} onChangeText={(text) => setTitle(text)} />
+            <TextInput style={styles.titlee} placeholder='العنوان' value={title} onChangeText={(text) => setTitle(text)} />
             <TextInput style={styles.addInput} value={desc} onChangeText={(text) => setDesc(text)} placeholder="اكتب شيء" />
             <TouchableOpacity style={styles.btnSave} onPress={() => addAndSave(title, desc)} >
                 <Text style={{ color: "white" }} >حفظ المذكرة</Text>

@@ -37,6 +37,14 @@ export const Provider = ({children}) => {
         
       }
 
+      const showThinkers = (item) => {
+        navigation.navigate("thinkersScreen",{
+          id: item.id,
+          title: item.title,
+          desc: item.desc
+        })
+      }
+
     console.log(notes);
 
     return (
@@ -45,6 +53,7 @@ export const Provider = ({children}) => {
             addAndSave,
             deleteFromList,
             notes,
+            showThinkers,
         }}>
         {children}
       </Context.Provider>

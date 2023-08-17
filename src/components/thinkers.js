@@ -5,7 +5,7 @@ import { Context } from "../context/Provider";
 
 const Thinkers = () => {
 
-    const { notes, deleteFromList } = useContext(Context)
+    const { notes, deleteFromList, showThinkers } = useContext(Context)
 
     return (
         <View style={{marginBottom:100}}>
@@ -15,7 +15,7 @@ const Thinkers = () => {
                 renderItem={({ item }) => (
                     <View style={styles.item}>
                         <View style={styles.itemLeft}>
-                            <Text style={styles.itemText}>{item.title}</Text>
+                            <Text style={styles.itemText} onPress={() => showThinkers(item)}>{item.title}</Text>
                             <Text style={{ marginVertical: 10 }}>{item.desc}</Text>
                             <Text style={styles.date}>24 اغسطس </Text>
                         </View>
