@@ -53,6 +53,7 @@ export const Provider = ({children}) => {
             addAndSave,
             deleteFromList,
             notes,
+            setNotes,
             showThinkers,
         }}>
         {children}
