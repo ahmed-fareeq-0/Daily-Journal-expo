@@ -1,62 +1,68 @@
-import React, {createContext, useState} from "react";
+import React, { createContext, useState } from "react";
+import { Alert } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
 export const Context = createContext();
 
-export const Provider = ({children}) => {
-  
-    const navigation = useNavigation();
-    const [notes, setNotes] = useState([]);
+export const Provider = ({ children }) => {
 
-    const addAndSave = (title, desc) => {
+  const navigation = useNavigation();
+  const [notes, setNotes] = useState([]);
+  // const [notesAsync, setNotesAsync] = useState([]);
 
-        if (title === "") {
-            Alert.alert("Oops", "Input is empty", [
-                {
-                    text: "Ok",
-                },
-            ]);
-            return;
-        }
+  const addAndSave = async (title, desc) => {
 
-        const newItem = {
-            id: uuid.v4(),
-            title: title,
-            desc: desc
-        };
-
-        setNotes([newItem, ...notes]);
-        // setTitle("");
-        // setDesc("");
-        navigation.navigate('Home');
-        
+    if (title === "" || desc === "") {
+      Alert.alert("Oops", "Input is empty", [
+        {
+          text: "Ok",
+        },
+      ]);
+      return;
     }
 
-    const deleteFromList = (id) => {
-        setNotes(notes.filter((note) => note.id != id));
-        
-      }
 
-      const showThinkers = (item) => {
-        navigation.navigate("thinkersScreen",{
-          id: item.id,
-          title: item.title,
-          desc: item.desc
-        })
-      }
+    const newItem = {
+      id: uuid.v4(),
+      title: title,
+      desc: desc
+    };
 
-    console.log(notes);
+    AsyncStorage.setItem('Notes', JSON.stringify(newItem));
+    await AsyncStorage.getItem('Notes', (err, result) => {
+      setNotes([JSON.parse(result), ...notes]);
+    });
 
-    return (
-      <Context.Provider
-        value={{
-            addAndSave,
-            deleteFromList,
-            notes,
-            setNotes,
-            showThinkers,
-        }}>
-        {children}
-      </Context.Provider>
-    );
-  };
+    navigation.navigate('Home');
+
+  }
+
+  console.log(notes);
+
+  const deleteFromList = (id) => {
+    setNotes(notes.filter((note) => note.id != id));
+
+  }
+
+  const showThinkers = (item) => {
+    navigation.navigate("thinkersScreen", {
+      id: item.id,
+      title: item.title,
+      desc: item.desc
+    })
+  }
+
+  return (
+    <Context.Provider
+      value={{
+        addAndSave,
+        deleteFromList,
+        notes,
+        setNotes,
+        showThinkers,
+      }}>
+      {children}
+    </Context.Provider>
+  );
+};

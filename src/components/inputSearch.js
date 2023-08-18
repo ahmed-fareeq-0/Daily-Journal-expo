@@ -6,7 +6,7 @@ import { Context } from "../context/Provider";
 const inputSearch = () => {
 
     const navigation = useNavigation();
-    const {notes, setNotes} = useContext(Context)
+    const {notes, setNotes} = useContext(Context);
 
     function handleSearch (event) {
         setNotes(
